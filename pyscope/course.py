@@ -28,6 +28,7 @@ class GSCourse:
         self.year = year
         self.session = session
         self.assignments = {}
+        self.assignments_grades = {}
         self.roster = {}  # TODO: Maybe shouldn't dict.
         self.state = (
             set()
@@ -100,7 +101,7 @@ class GSCourse:
         parsed = BeautifulSoup(assignments_resp.text, "html.parser")
 
         assignments_table_body = parsed.find("table", id="assignments-student-table").find("tbody")
-
+        print(assignments_table_body)
         datefmt = "%Y-%m-%d %H:%M:%S %z"
 
         assignments = []
@@ -132,6 +133,30 @@ class GSCourse:
             )
 
         return assignments
+
+    def get_assignments_grades(self):
+        assignments_resp = self.session.get("https://www.gradescope.com/courses/" + self.cid)
+        parsed = BeautifulSoup(assignments_resp.text, "html.parser")
+
+        assignments_table_body = parsed.find("table", id="assignments-student-table").find("tbody")
+        #print(assignments_table_body)
+        assignments = []
+        grades = []
+        for row in assignments_table_body.find_all("tr"):
+            #print(i, row)
+            #print("assignment name:", row.find("a"))
+
+            #print("assignment score:", row.find("div", {"class" : "submissionStatus--score"}))
+            if row.find("div", {"class" : "submissionStatus--score"}) != None and row.find("a") != None:
+                grades.append(row.find("div", {"class" : "submissionStatus--score"}))
+                assignments.append(row.find("a"))
+
+        for i in range(len(grades)):
+            self.assignments_grades[str(assignments[i].text)] = str(grades[i])
+
+        return assignments
+
+    
 
     def change_person_role(self, name, role):
         self._check_capabilities({LoadedCapabilities.ROSTER})
