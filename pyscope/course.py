@@ -134,6 +134,9 @@ class GSCourse:
 
         return assignments
 
+    """
+    MY EDIT -> ADDED PARSER SPECIFICALLY FOR GRADES
+    """
     def get_assignments_grades(self):
         assignments_resp = self.session.get("https://www.gradescope.com/courses/" + self.cid)
         parsed = BeautifulSoup(assignments_resp.text, "html.parser")
