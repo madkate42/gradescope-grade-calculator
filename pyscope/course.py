@@ -155,7 +155,7 @@ class GSCourse:
                 assignments.append(row.find("a"))
 
         for i in range(len(grades)):
-            self.assignments_grades[str(assignments[i].text)] = str(grades[i])
+            self.assignments_grades[str(assignments[i].text)] = str(grades[i].text)
 
         return assignments
 
