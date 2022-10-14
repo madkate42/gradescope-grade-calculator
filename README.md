@@ -13,3 +13,5 @@ python main.py # Run the script
 ```
 
 Asks for your email, password, name on Gradescrope. Gives you subscores for each category and overall grade with no account to final
+
+### Doesn't yet account for missing quizes/warmups/not submitting projects
