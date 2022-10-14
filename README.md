@@ -1,6 +1,6 @@
-# Gradescope to iCalendar Converter
+# Gradescope CS220 Fall 2022 grade calculator
 
-Project forked from [apozharski/gradescope-api](https://github.com/apozharski/gradescope-api) because I didn't feel like writing a webcrawler.
+Project forked from [apozharski/gradescope-api](https://github.com/apozharski/gradescope-api) and then from [sagarreddypatil/gradescope-ics] 
 
 ## Usage
 
@@ -12,9 +12,4 @@ pip install -r requirements.txt # Install dependencies
 python main.py # Run the script
 ```
 
-You'll be prompted for your Gradescope username and password. After the script runs, there should be a file called `gradescope.ics` in the current directory.
-
-## Flask App
-
-There's also a Flask app that can be called like this:
-`http://0.0.0.0:whatever/gradescope?email=<write email here>&pwd=<write password here>`
+Asks for your email, password, name on Gradescrope. Gives you subscores for each category and overall grade with no account to final
