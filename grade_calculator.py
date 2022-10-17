@@ -3,11 +3,14 @@ from re import sub
 """ SPECIFIC TO CS220 FALL 2022"""
 """ 
         TO BE DONE 
- 1. Missing grade
- 2. Final desired score
+ 1. Missing grade (No submission)
+ 2. Final desired score 
  3. Grade Prediction
  4. Future grades influence
  5. Grade proportion 
+
+ 6. Raise ecxcpetions for auth errors 
+ 7. Take into account future assignments
 
 """
 
@@ -30,6 +33,7 @@ class GradeCalculator:
     def __init__(self):
         self.grades = {}
         self.final = 0
+        self.current_wofinal = 0
         self.sub_scores = {
             "Quiz" : 0,
             "Project" : 0,
@@ -42,6 +46,7 @@ class GradeCalculator:
     def __init__(self, grades: dict):
         self.grades = grades        
         self.final = 0
+        self.current_wofinal = 0
         self.sub_scores = {
             "Quiz" : 0,
             "Project" : 0,
@@ -90,6 +95,7 @@ class GradeCalculator:
         subscore = 0
         if len(scores) != 0:
             subscore = average_score(scores)
+        
         return subscore
 
     def calculate_subscores(self):
@@ -107,7 +113,15 @@ class GradeCalculator:
 
     def grade_for_class(self):
         # without taking into account FINAL
-        score = 0
+        grade = 0
         for cat in self.categories_without_final:
-            score += self.sub_scores[cat] * self.categories_without_final[cat]
-        return score
+            grade += self.sub_scores[cat] * self.categories_without_final[cat]
+        self.current_wofinal = grade
+        return grade
+
+    
+    def needed_final_for(self, class_grade: float) -> float:
+        if self.current_wofinal == 0:
+            self.grade_for_class()
+        final_grade = (class_grade - self.current_wofinal * 0.75) / 0.25
+        return final_grade
