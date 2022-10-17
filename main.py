@@ -11,6 +11,7 @@ if __name__ == "__main__":
     # get credentials
     email = input("Enter your email: ")
     pwd = getpass("Enter your password: ")
+    
     # log in
     connection = gs.GSConnection()
     connection.login(email, pwd)
