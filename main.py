@@ -29,3 +29,5 @@ if __name__ == "__main__":
         print(i, " : ", gc.sub_scores[i])
     print()
     print("Current grade is: ", gc.grade_for_class())
+
+    print("For 93 in class you need", gc.needed_final_for(93), " on a final exam")
